@@ -23,10 +23,18 @@ def request_directions(kraj):
     origin = 'place_id:ChIJvfl5OEMtZUcRH4phdGnSJps'     
     url = 'https://maps.googleapis.com/maps/api/directions/json?' 
     res2 = requests.get(url + 'origin=' + origin + '&destination=' + kraj + '&mode=transit'+ '&key=' + key)
+    
+    #pp.pprint(data3)
+    
+    #pp.pprint(z)
+    #print(z)
     data2 = res2.json()
     #&alternatives=true
     #pp.pprint(data2)
     n = 0
+  
+
+    #print(z4)
 
 
     try: 
@@ -170,27 +178,10 @@ def request_directions(kraj):
     except (IndexError, KeyError):
         pass
 
-
-
-
-
-def openweather():
-    url= 'http://api.openweathermap.org/data/2.5/weather?q=Ljubljana&appid=8d3ef98ae6aefd864a88847b34a28f58&units=metric' 
-    res = requests.get(url) 
-    data = res.json() 
-    #print("data: ", data)
-    #copies data that we want from the dictonary
-    temp = data['main']['feels_like']
-    weather = data['weather'][0]['main']
-    print("temp: ", temp)
-    print("pada: ", weather)
-    return temp, weather
-
-
-   
-def directions_and_weather(kraj):
-
-    p5 = openweather()
+def get_directions(kraj):
     p6 = request_directions(kraj)
-    
-    return p5,p6
+    return p6
+
+
+
+

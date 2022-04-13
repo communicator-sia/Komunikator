@@ -1,4 +1,3 @@
-import json
 import timeDifference_2021_3_28
 from timeDifference_2021_3_28 import get_time_difference
 import datetime
@@ -9,12 +8,10 @@ logging.basicConfig(filename = 'logiranje.log', filemode = 'a', level=logging.IN
 log = logging.getLogger(__name__)
 
 # @brief
-def get_answer_text(contextual_info):
-    print('info: ', contextual_info)
-    weather = list(contextual_info[0])
-    route_data = list(contextual_info[1])
-    temperature = weather[0]
-    weather_desc=weather[1]
+def get_answer_text(weather_data,route_data,walking):
+    print('route_Data: ', route_data)
+    temperature = weather_data[0]
+    weather_desc=weather_data[1]
     departure_time = route_data[0]
     arival_time = route_data[1]
     bus_stop_name1 = route_data[2]
@@ -23,7 +20,7 @@ def get_answer_text(contextual_info):
 
     #print('route data: ', type(route_data))
     #print(route_data[0])
-    print(departure_time)
+    #print(departure_time)
 
 
 
@@ -38,28 +35,6 @@ def get_answer_text(contextual_info):
         departure_time_minutes=int(departure_time[3:5])
         part_of_the_day=departure_time[5:7]
     
-    """if departure_time[2:3] == ":":
-            departure_time_hour = int(departure_time[0:2])
-            print('dep hour:', departure_time_hour)
-            if departure_time[6:7] == "m":
-                departure_time_minutes = int(departure_time[3:5])
-                part_of_the_day = departure_time[5:7]
-            else:
-                departure_time_minutes = int(departure_time[3:4])
-                part_of_the_day = departure_time[4:6]
-    else:
-        departure_time_hour = int(departure_time[0:1])
-        print('ura: ',departure_time_hour)
-        if departure_time[5:6] =="m":
-            departure_time_minutes = int(departure_time[2:4])
-            print('dep min:', departure_time_minutes)
-            part_of_the_day = departure_time[4:6]
-            print('part_of_the_day: ', part_of_the_day)
-        else:
-
-            departure_time_minutes = int(departure_time[2:3])
-            part_of_the_day = departure_time[3:5]"""
-            
     hour = datetime.datetime.now().hour
     minutes = datetime.datetime.now().minute
 
@@ -72,7 +47,10 @@ def get_answer_text(contextual_info):
     else: 
         bus = "Trola " + bus_number + " pride na postajo " + bus_stop_name1 + " v smeri " + bus_stop_name2 +" čez " + str(arrives_in[1]) + " minut"
     
-    if weather_desc == 'thunderstorm' or weather_desc == 'snow' or weather_desc == 'drizzle' or weather_desc == 'rain' or weather_desc == 'wind':
+    if walking >10:
+        decided_outcome=bus
+    
+    elif weather_desc == 'nevihta' or weather_desc == 'sneg' or weather_desc == 'rosi' or weather_desc == 'dežuje' or weather_desc == 'piha veter':
         log.info("Oseba naj gre na bus")
         decided_outcome = bus
 

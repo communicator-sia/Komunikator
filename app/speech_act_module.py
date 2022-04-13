@@ -55,7 +55,7 @@ def get_intent_from_question(question):
         return_value = response.fulfillment_text
 
     print_out(question, return_value)
-    return return_value, intent
+    return return_value,intent
 
 def get_intent(response):
     return response.intent.display_name
@@ -93,3 +93,15 @@ def get_response(text):
     response = client.detect_intent(session, query_input)
     #print('response: ', response)
     return response.query_result
+
+
+
+def speech_act_module(userinput_text):
+    try:
+        address=get_intent_from_question(userinput_text)
+        return address
+    except Exception as e:
+        print("something went terribly wrong")
+        print('e: ',e)
+        a = "napaka"
+        return 
